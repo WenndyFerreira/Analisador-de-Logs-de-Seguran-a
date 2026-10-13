@@ -1,4 +1,4 @@
-#Readme.txt
+Readme.txt
 
 🛡️ Analisador de Logs de Segurança
 

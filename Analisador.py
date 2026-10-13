@@ -6,10 +6,7 @@ from pathlib import Path
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 
-# ==========================================
 # 1. CONFIGURAÇÕES DO SISTEMA
-# ==========================================
-
 PASTA_PROJETO = Path(__file__).resolve().parent
 
 ARQUIVO_LOG = PASTA_PROJETO / "seguranca.log"
@@ -25,14 +22,9 @@ PADRAO_LOG = re.compile(
     r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})"
     r"\s*\|\s*IP:\s*(\S+)"
     r"\s*\|\s*STATUS:\s*(SUCESSO|FALHA)\s*$",
-    re.IGNORECASE
-)
+    re.IGNORECASE)
 
-
-# ==========================================
 # 2. CRIAR LOG DE EXEMPLO
-# ==========================================
-
 def criar_log_exemplo():
 
     if ARQUIVO_LOG.exists():
@@ -66,11 +58,7 @@ def criar_log_exemplo():
 
     print("Arquivo de exemplo criado: seguranca.log")
 
-
-# ==========================================
 # 3. LER E VALIDAR OS LOGS
-# ==========================================
-
 def ler_logs():
 
     eventos = []
@@ -116,11 +104,7 @@ def ler_logs():
 
     return eventos, linhas_invalidas
 
-
-# ==========================================
 # 4. DETECTAR FALHAS CONSECUTIVAS
-# ==========================================
-
 def detectar_ataques(eventos):
 
     falhas_por_ip = defaultdict(list)
@@ -166,17 +150,13 @@ def detectar_ataques(eventos):
                 "falhas": maior_quantidade,
                 "inicio": periodo_suspeito[0],
                 "fim": periodo_suspeito[1],
-                "classificacao": "Possível força bruta"
-            })
+                "classificacao": "Possível força bruta"})
 
     return sorted(
         alertas,
         key=lambda alerta: alerta["falhas"],
-        reverse=True
-    )
+        reverse=True)
 
-
-# ==========================================
 # 5. ESTATÍSTICAS
 # ==========================================
 
@@ -206,10 +186,7 @@ def gerar_estatisticas(eventos):
         "ips": ips
     }
 
-
-# ==========================================
 # 6. GERAR RELATÓRIO CSV
-# ==========================================
 
 def gerar_relatorio(alertas):
 
@@ -249,11 +226,7 @@ def gerar_relatorio(alertas):
                 "Classificação": alerta["classificacao"]
             })
 
-
-# ==========================================
 # 7. EXIBIR RESULTADOS
-# ==========================================
-
 def mostrar_resultados(eventos, invalidas):
 
     estatisticas = gerar_estatisticas(eventos)
@@ -306,11 +279,7 @@ def mostrar_resultados(eventos, invalidas):
 
     print("\nAnálise concluída.")
 
-
-# ==========================================
 # 8. EXECUÇÃO PRINCIPAL
-# ==========================================
-
 def main():
 
     print("Iniciando o Analisador de Logs...")
